@@ -1,10 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "id": "metrics-analyzer",
-  "name": "Metrics Analyzer",
+  "name": "实时遥测分析器",
   "version": "1.0.0",
   "author": "wenfer",
-  "description": "High-throughput real-time probe telemetry analyzer with worker pool, sync.Pool buffer recycling, EWMA traffic rate computation, and anomaly alert dispatching.",
+  "description": "高吞吐量实时探针遥测分析引擎，具备 Worker Pool 工作池、sync.Pool 缓冲池零逃逸复用、EWMA 流量速率平滑计算与突发异常告警通知功能。",
   "homepage": "https://github.com/wenfer/qy-plugins",
   "repository": "https://github.com/wenfer/qy-plugins",
   "license": "MIT",
@@ -26,14 +26,14 @@
     "tabs": [
       {
         "id": "metrics-analyzer-tab",
-        "title": "Metrics Analysis",
+        "title": "遥测分析",
         "icon": "Activity"
       }
     ],
     "widgets": [
       {
         "id": "ewma-traffic-widget",
-        "title": "EWMA Traffic Rates",
+        "title": "EWMA 实时流量速率",
         "target": "overview"
       }
     ]
@@ -44,7 +44,7 @@
       "navigation_tabs": [
         {
           "id": "metrics-analyzer-tab",
-          "title": "Metrics Analysis",
+          "title": "遥测分析",
           "icon": "Activity",
           "component": "MetricsTab"
         }
@@ -52,7 +52,7 @@
       "drawer_actions": [
         {
           "id": "server-ewma-stats",
-          "title": "EWMA Rate Inspector",
+          "title": "EWMA 速率详情",
           "icon": "LineChart",
           "component": "ServerEWMAAction"
         }
@@ -60,7 +60,7 @@
       "overview_widgets": [
         {
           "id": "ewma-traffic-widget",
-          "title": "EWMA Traffic Rates",
+          "title": "EWMA 实时流量速率",
           "span": 2,
           "component": "TrafficWidget"
         }

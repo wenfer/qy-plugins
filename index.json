@@ -4,19 +4,19 @@
   "plugins": [
     {
       "id": "metrics-analyzer",
-      "name": "Metrics Analyzer",
+      "name": "实时遥测分析器",
       "version": "1.0.0",
-      "description": "High-throughput real-time probe telemetry analyzer with worker pool, sync.Pool buffer recycling, EWMA traffic rate computation, and anomaly alert dispatching.",
+      "description": "高吞吐量实时探针遥测分析引擎，具备 Worker Pool 工作池、sync.Pool 缓冲池零逃逸复用、EWMA 流量速率平滑计算与突发异常告警通知功能。",
       "author": "wenfer",
       "homepage": "https://github.com/wenfer/qy-plugins",
       "repository": "https://github.com/wenfer/qy-plugins",
       "license": "MIT",
       "tags": [
-        "telemetry",
-        "metrics",
-        "ewma",
-        "analytics",
-        "official"
+        "遥测分析",
+        "性能指标",
+        "EWMA",
+        "异常告警",
+        "官方插件"
       ],
       "min_host_version": "2.0.0",
       "releases": [
@@ -51,18 +51,18 @@
     },
     {
       "id": "starter-template",
-      "name": "Starter Template",
+      "name": "插件开发入门模板",
       "version": "1.0.0",
-      "description": "Minimal boilerplate template for building QY-DASH microkernel plugins with Go UDS IPC and native ESM UI extensions.",
+      "description": "用于构建 QY-DASH 微内核插件的极简开发脚手架，集成 Go UDS IPC 进程间通信与原生 ESM 前端扩展能力。",
       "author": "wenfer",
       "homepage": "https://github.com/wenfer/qy-plugins",
       "repository": "https://github.com/wenfer/qy-plugins",
       "license": "MIT",
       "tags": [
-        "template",
-        "starter",
-        "boilerplate",
-        "official"
+        "开发模板",
+        "入门脚手架",
+        "微内核扩展",
+        "官方插件"
       ],
       "min_host_version": "2.0.0",
       "releases": [

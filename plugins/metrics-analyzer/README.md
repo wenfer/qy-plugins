@@ -1,12 +1,12 @@
-# Metrics Analyzer Plugin
+# 实时遥测分析器插件 (Metrics Analyzer)
 
-Official reference plugin for QY-DASH demonstrating high-throughput real-time probe telemetry ingestion, zero-allocation memory recycling via `sync.Pool`, Exponentially Weighted Moving Average (EWMA) traffic smoothing, and automatic spike anomaly alerts.
+QY-DASH 官方参考插件，用于演示高吞吐实时探针遥测数据摄取、通过 `sync.Pool` 实现零内存逃逸缓冲复用、指数加权移动平均 (EWMA) 流量速率平滑计算以及自动突发流量异常告警。
 
-## Features
+## 功能特性
 
-- **Microkernel Subprocess**: Runs in a sandboxed child process with strict resource limits and sub-10ms crash detection.
-- **IPC Protocol**: 16-byte binary framing protocol over Unix Domain Sockets (`/tmp/qysock-*`).
-- **Telemetry Streaming**: Subscribes to real-time probe metrics without blocking host operation.
-- **EWMA Traffic Rate**: Computes smoothed traffic rate ($\alpha = 0.20$) and flags abnormal traffic spikes (>50 MB/s).
-- **Isolated SQLite Storage**: Persists rolling metrics snapshots via host-managed isolated KV tables.
-- **Native ESM UI**: Dynamic React frontend extension points (Navigation Tab, Server Drawer Action, Overview Widget).
+- **微内核子进程沙箱**：运行在受控的独立子进程中，具备严格资源隔离与 10ms 级崩溃异常捕获。
+- **IPC 协议规范**：基于 Unix Domain Socket (`/tmp/qysock-*`) 运行 16-byte 高效二进制帧协议。
+- **实时遥测流消费**：异步订阅主机遥测事件，不阻塞宿主主进程核心监控。
+- **EWMA 流量速率计算**：计算平滑带宽速率 ($\alpha = 0.20$)，自动甄别突发流量尖峰 (>50 MB/s) 并推送告警通知。
+- **隔离 SQLite 存储**：利用宿主管理的独立 KV 表持久化滚动时序快照。
+- **原生 ESM 前端扩展**：动态 React 前端扩展挂载（导航栏 Tab、主机抽屉操作、首页统计小部件）。

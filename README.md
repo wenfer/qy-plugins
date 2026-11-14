@@ -56,8 +56,8 @@ qy-plugins/
 
 | 插件 ID | 名称 | 版本 | 架构支持 | 描述 |
 | :--- | :--- | :--- | :--- | :--- |
-| `metrics-analyzer` | **Metrics Analyzer** | `v1.0.0` | Linux amd64<br>Linux arm64<br>macOS arm64 | 高吞吐实时主机遥测分析引擎，具备 `sync.Pool` 零逃逸内存复用、EWMA 流量速率平滑与突发告警 |
-| `starter-template` | **Starter Template** | `v1.0.0` | 源码模板 | 最小化样板模板，包含完整的 UDS 后台交互与前端 ESM 扩展挂载点 |
+| `metrics-analyzer` | **实时遥测分析器** | `v1.0.0` | Linux amd64<br>Linux arm64<br>macOS arm64 | 高吞吐实时主机遥测分析引擎，具备 `sync.Pool` 零逃逸内存复用、EWMA 流量速率平滑与突发告警 |
+| `starter-template` | **插件开发入门模板** | `v1.0.0` | 源码模板 | 极简微内核插件样板模板，包含完整的 UDS 后台交互与前端 ESM 扩展挂载点 |
 
 ---
 

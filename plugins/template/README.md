@@ -1,21 +1,21 @@
-# Starter Template Plugin
+# 插件开发入门模板 (Starter Template)
 
-Minimal boilerplate template for building QY-DASH microkernel plugins with Go UDS IPC backend and native ESM React frontend.
+用于构建 QY-DASH 微内核插件的极简脚手架模板，集成 Go UDS IPC 后台子进程与原生 ESM React 前端扩展。
 
-## Directory Structure
+## 目录结构
 
 ```
 template/
-├── main.go          # Go entrypoint implementing pluginsdk.Plugin
-├── plugin.json      # Manifest defining permissions & UI extension points
+├── main.go          # 实现 pluginsdk.Plugin 接口的 Go 入口
+├── plugin.json      # 定义权限声明与前端 UI 扩展点的插件清单
 ├── ui/
-│   └── index.js     # Native ESM frontend component (React 19 compatible)
+│   └── index.js     # 原生 ESM 前端组件 (兼容 React 19)
 └── README.md
 ```
 
-## Quick Start
+## 快速上手
 
-1. Copy this directory to `plugins/your-plugin-name`
-2. Update `id`, `name`, `description` in `plugin.json`
-3. Add your business logic in `main.go` and UI in `ui/index.js`
-4. Compile and package using `scripts/package-plugin.sh`
+1. 将本目录复制至 `plugins/your-plugin-name`
+2. 修改 `plugin.json` 中的 `id`、`name`、`description` 等信息
+3. 在 `main.go` 中编写业务逻辑，在 `ui/index.js` 中编写前端组件
+4. 使用 `scripts/package-plugin.sh` 进行多架构交叉编译与打包验证

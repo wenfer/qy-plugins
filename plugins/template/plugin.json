@@ -1,10 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "id": "starter-template",
-  "name": "Starter Template Plugin",
+  "name": "插件开发入门模板",
   "version": "1.0.0",
   "author": "wenfer",
-  "description": "Minimal boilerplate template for building QY-DASH microkernel plugins with Go UDS IPC and native ESM UI extensions.",
+  "description": "用于构建 QY-DASH 微内核插件的极简开发脚手架，集成 Go UDS IPC 进程间通信与原生 ESM 前端扩展能力。",
   "homepage": "https://github.com/wenfer/qy-plugins",
   "repository": "https://github.com/wenfer/qy-plugins",
   "license": "MIT",
@@ -21,7 +21,7 @@
       "navigation_tabs": [
         {
           "id": "starter-tab",
-          "title": "Starter Plugin",
+          "title": "示例插件",
           "icon": "Box",
           "component": "StarterTab"
         }
