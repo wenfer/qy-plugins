@@ -1,57 +1,189 @@
-# QY-DASH 插件市场与开发 SDK
+# QY-DASH
 
 <p align="center">
-  <a href="https://github.com/wenfer/qy-plugins/actions/workflows/ci.yml"><img src="https://github.com/wenfer/qy-plugins/actions/workflows/ci.yml/badge.svg" alt="CI Status"></a>
-  <img src="https://img.shields.io/badge/Go-1.22+-00ADD8?style=flat&logo=go" alt="Go Version">
-  <img src="https://img.shields.io/badge/Schema-v1-blue" alt="Catalog Schema v1">
-  <img src="https://img.shields.io/badge/License-MIT-slate" alt="License MIT">
+  <strong>Linux 节点监控 · 代理核心托管 · 声明式订阅分流转换系统 · 微内核插件生态</strong>
 </p>
 
-本仓库为 [QY-DASH](https://github.com/wenfer/qy-dash) 官方插件市场索引、Go 扩展开发 SDK 与官方参考插件仓库：
-
-1. **官方插件市场索引 (`index.json`)**：为 QY-DASH 控制台「插件市场」提供插件元数据、版本包下载地址与 SHA-256 校验和。
-2. **官方 Go Plugin SDK (`pkg/pluginsdk`)**：基于 Unix Domain Socket (UDS) 的进程间通信开发包，无外部第三方依赖。
-3. **官方参考插件 (`plugins/metrics-analyzer`)**：演示基于 EWMA 算法的节点流量平滑统计与突发带宽告警。
-4. **插件开发模板 (`plugins/template`)**：包含后台服务与前端界面挂载点的最小开发模板。
-5. **规范与文档 (`docs/`)**：包含清单契约规范、SDK 开发手册与插件发布提交流程。
-
----
-
-## 目录结构
-
-```
-qy-plugins/
-├── index.json                  # 官方插件市场索引 (Catalog Schema v1)
-├── pkg/
-│   └── pluginsdk/              # Go 插件开发 SDK
-│       ├── ipc/                # 16 字节定长二进制帧编解码
-│       ├── client.go           # 异步 RPC 通信与节点监控指标流消费
-│       ├── serve.go            # 插件子进程生命周期托管与优雅关闭
-│       ├── storage.go          # 插件独立持久化存储客户端 (SQLite)
-│       └── types.go            # 接口定义 (Plugin, HostContext, Logger)
-├── plugins/
-│   ├── metrics-analyzer/       # 官方参考插件: 流量分析与突发告警
-│   │   ├── analyzer/           # 工作池并发处理与数据平滑计算
-│   │   ├── ui/index.js         # 前端 React 19 ESM 动态挂载组件
-│   │   ├── main.go             # 插件后台子进程入口
-│   │   └── plugin.json         # 插件清单规范
-│   └── template/               # 最小插件开发模板
-│       ├── ui/index.js
-│       ├── main.go
-│       └── plugin.json
-├── docs/
-│   ├── MANIFEST_SPEC.md        # plugin.json 结构规范与多架构打包标准
-│   ├── SDK_GUIDE.md            # Go SDK 与前端原生 ESM 扩展开发指南
-│   └── PUBLISHING.md           # 插件市场提交流程与规范
-├── scripts/
-│   ├── package-plugin.sh       # 跨平台编译 (Linux amd64/arm64, Darwin) 与打包校验
-│   └── validate-index.sh       # 市场 index.json 语法与校验和自动化验证
-└── .github/workflows/          # 自动化 CI 测试与 Release 发版流水线
-```
+<p align="center">
+  <a href="docs/USER_GUIDE.md"><img src="https://img.shields.io/badge/文档-使用指南-0284c7?style=flat-square" alt="使用指南" /></a>
+  <a href="https://github.com/wenfer/qy-plugins/actions/workflows/ci.yml"><img src="https://github.com/wenfer/qy-plugins/actions/workflows/ci.yml/badge.svg" alt="CI Status" /></a>
+  <img src="https://img.shields.io/badge/容器-ghcr.io%2Fwenfer%2Fqy--dash-blue?style=flat-square&logo=docker" alt="Docker Image" />
+  <img src="https://img.shields.io/badge/Go-1.24+-00ADD8?style=flat-square&logo=go" alt="Go Version" />
+  <img src="https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react" alt="React 19" />
+  <img src="https://img.shields.io/badge/Schema-v1-blue" alt="Catalog Schema v1" />
+  <img src="https://img.shields.io/badge/License-MIT-slate?style=flat-square" alt="License MIT" />
+</p>
 
 ---
 
-## 插件市场目录
+![QY-DASH 控制台界面概览](docs/images/dashboard-overview.png)
+
+本项目为 **QY-DASH** 公开文档中心与插件生态仓库，包含：
+1. **QY-DASH 平台使用说明**：Docker 镜像极速部署、被控节点一键接入、环境参数参考与详细运维指南。
+2. **官方插件市场索引 (`index.json`)**：为 QY-DASH 控制台「插件市场」提供插件元数据、版本包下载地址与 SHA-256 校验和。
+3. **官方 Go Plugin SDK (`pkg/pluginsdk`)**：基于 Unix Domain Socket (UDS) 进程隔离通信的插件开发包，轻量零外部依赖。
+4. **官方参考插件 (`plugins/`)**：包含流量分析突发告警 (`metrics-analyzer`) 与最小开发模板 (`template`)。
+5. **官方文档中心 (`docs/`)**：涵盖主平台运维指南、双协议编排手册、插件清单规范与 SDK 开发教程。
+
+> 💡 **镜像使用指引**：QY-DASH 官方多架构 Docker 镜像发布在 GitHub Container Registry：`ghcr.io/wenfer/qy-dash:latest`。
+
+---
+
+## 目录
+- [QY-DASH 核心平台特性](#qy-dash-核心平台特性)
+- [界面与功能展示](#界面与功能展示)
+- [快速开始 (Docker 极速部署)](#快速开始-docker-极速部署)
+- [被控 VPS 节点一键接入](#被控-vps-节点一键接入)
+- [环境变量配置参考](#环境变量配置参考)
+- [平台扩展文档导航](#平台扩展文档导航)
+- [官方插件市场目录](#官方插件市场目录)
+- [插件安装方式](#插件安装方式)
+- [插件开发快速开始](#插件开发快速开始)
+- [提交插件到官方市场](#提交插件到官方市场)
+- [安全隔离机制](#安全隔离机制)
+
+---
+
+## QY-DASH 核心平台特性
+
+QY-DASH 是一套面向 Linux 服务器的节点监控、双代理内核自动化编排与多端订阅分流转换系统。系统采用轻量 C/S 架构，服务端内嵌 SQLite 数据库与 React 19 单页应用，支持被控端主动长连接上报、Xray 与 Sing-box 核心协议共存管理、全网络栈适配、多维度网络质量检测与插件化扩展。
+
+- **轻量 C/S 运行架构**  
+  控制端 `qy-dash-core` 单容器/单二进制交付，内嵌 Web 管理界面与持久化数据库，开箱即用。被控端 `qy-dash-agent` 资源占用低（常驻内存 < 10MB），无需在服务端保存目标主机 SSH 凭据，通过双向长连接主动上报指标并执行受控运维指令。
+- **Xray 与 Sing-box 双内核并行管理**  
+  单台 VPS 支持同时托管运行 VLESS-Reality（免申请 TLS 证书）、Hysteria2（UDP 拥塞控制）与 TUIC 协议，端口分配与伪装域名自动校验，互不干扰。
+- **全场景网络栈支持**  
+  原生支持 IPv4 单栈、IPv4/IPv6 双栈、NAT 端口映射机型；针对纯 IPv6 VPS，可自动配置 NAT64 路由与 DNS64 解析，确保境外网络访问连通性。
+- **多维度网络与资产诊断**  
+  内置 Google 与 YouTube 定位检测、IP 风险画像识别、流媒体与主流 AI 服务可用性测试、三网回程链路分析以及 GFW 阻断状态侦测。
+- **声明式订阅转换与客户端自适应**  
+  聚合外部订阅与自建节点，提供可视化的策略组配置、节点清洗与规范重命名规则。依据客户端 `User-Agent` 动态分发对应格式（Clash / Sing-box / V2Ray 等）。
+- **进程隔离插件体系**  
+  基于 UDS IPC 与独立进程隔离模型构建，提供插件生命周期管理、官方插件市场以及第三方仓库接入能力，支持运行时热挂载与前端动态组件扩展。
+- **多渠道故障与运维告警**  
+  支持 Telegram Bot 与通用 Webhook（覆盖飞书、企业微信、Discord、Slack 等平台），实时推送节点上下线事件与主机续费预警，内置防抖策略避免网络瞬时抖动造成告警轰炸。
+
+---
+
+## 界面与功能展示
+
+### 1. 主机监控与运维抽屉
+控制台提供全局节点概览，支持查看各节点 CPU、内存、存储与实时网络吞吐。在侧边抽屉中可直接执行节点网络诊断、IP 质量检测与磁盘垃圾清理。
+![主机管理与运维抽屉](docs/images/host-drawer.png)
+
+### 2. 订阅管理与分流配置
+支持对多来源订阅进行聚合、过滤与重命名，并通过可视化界面编排策略组与路由规则，生成具备流量配额管控的单条通用订阅链接。
+![订阅管理与分流配置](docs/images/subscription-manager.png)
+
+### 3. 插件中心与扩展市场
+支持在线浏览与安装官方生态插件，提供进程级隔离保护，并允许用户添加第三方 Git 插件仓库。
+![插件中心与扩展市场](docs/images/plugin-market.png)
+
+---
+
+## 快速开始 (Docker 极速部署)
+
+### 方式 1: Docker Compose 部署 (推荐)
+
+在服务器创建 `docker-compose.yml`（或直接使用本仓库提供的 [docker-compose.example.yml](docker-compose.example.yml)）：
+
+```yaml
+services:
+  qy-dash:
+    image: ghcr.io/wenfer/qy-dash:latest
+    container_name: qy-dash
+    restart: unless-stopped
+    ports:
+      - "2026:2026"
+    environment:
+      # Web 管理员账号与密码（首次部署请务必修改为强密码）
+      - WEB_USER=admin
+      - WEB_PASS=Your_Strong_Password_Here
+      # SQLite 数据库持久化路径
+      - DB_PATH=/data/qy-dash.db
+      # 加密主密钥种子（可选；留空时将自动生成 master.key 保存在数据卷中）
+      - SECRET=Your_Deterministic_Secret_Seed_32_Chars
+    volumes:
+      - ./data:/data
+```
+
+启动容器：
+```bash
+docker compose up -d
+docker compose logs -f
+```
+
+启动完成后，使用浏览器访问 `http://<服务器IP>:2026` 即可进入管理控制台。
+
+### 方式 2: Docker CLI 一键命令
+
+```bash
+mkdir -p data
+docker run -d \
+  --name qy-dash \
+  --restart unless-stopped \
+  -p 2026:2026 \
+  -e WEB_USER=admin \
+  -e WEB_PASS=Your_Strong_Password_Here \
+  -e DB_PATH=/data/qy-dash.db \
+  -v $(pwd)/data:/data \
+  ghcr.io/wenfer/qy-dash:latest
+```
+
+---
+
+## 被控 VPS 节点一键接入
+
+在 Web 控制台点击 **「添加主机」**，复制为当前实例生成的一键接入命令，并在被控 Linux 服务器（Debian / Ubuntu / CentOS / Alpine，支持 x86_64 与 ARM64）上执行：
+
+```bash
+# 获取注册密钥：在控制台「添加主机」弹窗中复制
+SECRET=<控制台展示的注册密钥>
+
+# 标准 Linux (Debian / Ubuntu / CentOS / Rocky 等)
+curl -fsSL http://<服务端地址>:2026/install.sh | sh -s -- \
+  --server http://<服务端地址>:2026 --secret $SECRET --name "节点名称"
+
+# Alpine Linux / 极简环境
+wget -qO- http://<服务端地址>:2026/install.sh | sh -s -- \
+  --server http://<服务端地址>:2026 --secret $SECRET --name "节点名称"
+```
+
+被控端服务将由系统 Systemd 或 OpenRC 自动托管常驻并设置开机自启。
+
+### 探针常用管理命令
+
+```bash
+systemctl status qy-dash-agent     # 查看 Agent 状态 (Systemd)
+rc-service qy-dash-agent status    # 查看 Agent 状态 (Alpine OpenRC)
+curl -fsSL http://<服务端地址>:2026/install.sh | sh -s -- --uninstall # 卸载 Agent
+```
+
+---
+
+## 环境变量配置参考
+
+| 变量名 | 命令行参数 | 默认值 | 说明 |
+| :--- | :--- | :--- | :--- |
+| `WEB_USER` | `-user` | `admin` | Web 控制台管理员用户名 |
+| `WEB_PASS` | `-pass` | `admin123` | Web 控制台管理员密码（**生产环境必须修改**） |
+| `LISTEN` | `-listen` | `:2026` | 服务监听端口与地址 |
+| `DB_PATH` | `-db` | `/data/qy-dash.db` | SQLite 数据库文件绝对路径 |
+| `SECRET` | `-secret` | *(自动生成)* | AES-256 加密主密钥。未显式指定时会在数据库同级目录生成 `master.key`；**迁移数据库时必须一同备份迁移 `master.key`** |
+| `TRUSTED_PROXIES` | `-trusted-proxies` | *(空)* | 可信反向代理 CIDR 网段。服务部署在 Nginx / Caddy / Cloudflare 之后需还原真实来源 IP 时配置 |
+
+---
+
+## 平台扩展文档导航
+
+- [详细使用与运维指南](docs/USER_GUIDE.md)：涵盖各功能模块操作指南、双内核协议实操、链式代理排障、WebTTY、日志追踪与 FAQ。
+- [Sing-box 核心协议部署实操](docs/SING_BOX_DEPLOYMENT.md)：Hysteria2、TUIC、VLESS Reality 双协议共存实操手册。
+- [双协议并行验证机制](docs/DUAL_PROTOCOL_VERIFICATION.md)：端口隔离、保活与热重启保障规范。
+- [版本号规范与发版流程](docs/VERSIONING.md)：语义化版本控制规范与 CI/CD 说明。
+
+---
+
+## 官方插件市场目录
 
 当前官方市场索引收录的插件：
 
@@ -62,7 +194,7 @@ qy-plugins/
 
 ---
 
-## 用户安装方式
+## 插件安装方式
 
 ### 方式 1: 官方插件市场在线安装 (推荐)
 
@@ -208,7 +340,7 @@ export function MyTab() {
 4. 运行 `./scripts/validate-index.sh` 进行格式验证。
 5. 提交 Pull Request，CI 校验通过后即可合并入官方索引。
 
-详细指南请参阅 [docs/PUBLISHING.md](docs/PUBLISHING.md)。
+详细指南请参阅 [docs/PUBLISHING.md](docs/PUBLISHING.md) 与 [docs/SDK_GUIDE.md](docs/SDK_GUIDE.md)。
 
 ---
 

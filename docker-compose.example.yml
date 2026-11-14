@@ -1,0 +1,29 @@
+services:
+  qy-dash:
+    image: ghcr.io/wenfer/qy-dash:latest
+    container_name: qy-dash
+    restart: unless-stopped
+    ports:
+      - "2026:2026"
+    environment:
+      # Web 控制台登录认证用户名与密码 (在 VPS 部署时请修改强密码)
+      - WEB_USER=${WEB_USER:-admin}
+      - WEB_PASS=${WEB_PASS:-your_strong_password}
+      # 数据库存储路径 (持久化在 /data 卷，兼容老版本 /data/qy-xray.db)
+      - DB_PATH=/data/qy-dash.db
+      # 加密主密钥种子 —— 语义已变更，请务必读完注释
+      #
+      # master.key（/data/master.key）是唯一权威密钥来源：
+      #
+      #   · master.key 已存在 → SECRET 被【忽略】，仅输出告警（docker logs 首屏）
+      #   · master.key 不存在 → 用 SECRET 派生初始密钥并立即落盘为 master.key
+      #
+      # 因此 SECRET 只是「首次部署时指定一把确定性密钥」的种子，不是随时可切换的
+      # 开关。中途修改 SECRET 不会改变任何行为——这正是我们要的：消除密钥来源被
+      # 静默切换的风险（旧逻辑下中途赋值会让全部已加密数据永久无法解密）。
+      #
+      # 多副本/多节点部署时务必设置同一个 SECRET，让各副本固化出相同的
+      # master.key；否则各自随机生成会导致互相无法解密对方写入的数据。
+      - SECRET=${SECRET:-}
+    volumes:
+      - ./data:/data
