@@ -26,7 +26,7 @@
     "tabs": [
       {
         "id": "metrics-analyzer-tab",
-        "title": "遥测分析",
+        "title": "流量分析",
         "icon": "Activity"
       }
     ],
@@ -44,7 +44,7 @@
       "navigation_tabs": [
         {
           "id": "metrics-analyzer-tab",
-          "title": "遥测分析",
+          "title": "流量分析",
           "icon": "Activity",
           "component": "MetricsTab"
         }

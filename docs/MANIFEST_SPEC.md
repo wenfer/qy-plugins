@@ -44,7 +44,7 @@ The `plugin.json` file resides in the root directory of the plugin archive. It d
   "name": "Metrics Analyzer",
   "version": "1.0.0",
   "author": "QY-DASH Core Team",
-  "description": "High-throughput real-time probe telemetry analyzer with worker pool, sync.Pool buffer recycling, EWMA traffic rate computation, and anomaly alert dispatching.",
+  "description": "Real-time traffic analyzer with worker pool, buffer recycling, EWMA rate computation, and anomaly alert dispatching.",
   "homepage": "https://github.com/wenfer/qy-plugins",
   "repository": "https://github.com/wenfer/qy-plugins",
   "license": "MIT",
@@ -157,7 +157,7 @@ Configures browser dynamic ESM import and UI registration:
 Explicit declaration of host services required by the plugin:
 
 #### Permissions (`permissions`)
-- `metrics:subscribe`: Authorizes real-time probe telemetry stream subscription.
+- `metrics:subscribe`: Authorizes real-time probe metrics stream subscription.
 - `storage:isolated`: Grants read/write access to isolated SQLite Key-Value table.
 - `storage:readwrite`: Unrestricted storage operations within plugin keyspace.
 - `servers:read`: Allows querying host server topology and node details.
@@ -165,7 +165,7 @@ Explicit declaration of host services required by the plugin:
 
 #### Capabilities (`capabilities`)
 Informational tags consumed by marketplace search index and UI filters:
-- `metrics_streaming`: Continuous telemetry aggregation.
+- `metrics_streaming`: Continuous metrics aggregation.
 - `ewma_aggregation`: High-performance mathematical statistical rate modeling.
 - `anomaly_detection`: Real-time anomaly detection and threshold evaluation.
 - `ui_extension`: Provides interactive web frontend UI components.
@@ -244,12 +244,12 @@ Official catalog index is hosted at `https://raw.githubusercontent.com/wenfer/qy
       "id": "metrics-analyzer",
       "name": "Metrics Analyzer",
       "version": "1.0.0",
-      "description": "High-throughput real-time probe telemetry analyzer with worker pool, sync.Pool buffer recycling, EWMA traffic rate computation, and anomaly alert dispatching.",
+      "description": "Real-time traffic analyzer with worker pool, buffer recycling, EWMA rate computation, and anomaly alert dispatching.",
       "author": "QY-DASH Core Team",
       "homepage": "https://github.com/wenfer/qy-plugins",
       "repository": "https://github.com/wenfer/qy-plugins",
       "license": "MIT",
-      "tags": ["telemetry", "metrics", "ewma", "analytics"],
+      "tags": ["monitoring", "metrics", "ewma", "analytics"],
       "min_host_version": "2.0.0",
       "releases": [
         {

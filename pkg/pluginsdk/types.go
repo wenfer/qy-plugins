@@ -41,7 +41,7 @@ type Notification struct {
 	Details  map[string]any `json:"details,omitempty"`
 }
 
-// MetricsEvent represents a real-time probe telemetry broadcast from the host.
+// MetricsEvent represents a real-time probe metrics broadcast from the host.
 type MetricsEvent struct {
 	Server     Server      `json:"server"`
 	Stats      *ProbeStats `json:"stats,omitempty"`
@@ -73,7 +73,7 @@ type Server struct {
 	PingLatencyMs int64  `json:"ping_latency_ms"`
 }
 
-// ProbeStats represents detailed server telemetry metrics.
+// ProbeStats represents detailed server hardware and network metrics.
 type ProbeStats struct {
 	ServerID         string    `json:"server_id"`
 	Timestamp        time.Time `json:"timestamp"`

@@ -88,7 +88,7 @@ func (p *MetricsAnalyzerPlugin) Start(host pluginsdk.HostContext) error {
 	}
 	p.sub = sub
 
-	p.logger.Infof("Metrics Analyzer Plugin successfully started and subscribed to telemetry stream")
+	p.logger.Infof("Metrics Analyzer Plugin successfully started and subscribed to metrics stream")
 	return nil
 }
 

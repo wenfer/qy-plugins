@@ -15,7 +15,7 @@ Comprehensive guide for building high-performance, crash-resilient backend and f
    - [Bootstrap & Graceful Shutdown](#bootstrap--graceful-shutdown)
 3. [HostContext Capabilities](#3-hostcontext-capabilities)
    - [Server Topology & Node Inspection](#server-topology--node-inspection)
-   - [Real-Time Telemetry Stream Subscription](#real-time-telemetry-stream-subscription)
+   - [Real-Time Metrics Stream Subscription](#real-time-metrics-stream-subscription)
    - [Strong SQLite Storage Isolation](#strong-sqlite-storage-isolation)
    - [Notification Dispatching](#notification-dispatching)
    - [Structured Logging](#structured-logging)
@@ -23,7 +23,7 @@ Comprehensive guide for building high-performance, crash-resilient backend and f
    - [Worker Pool Architecture](#worker-pool-architecture)
    - [Zero-Allocation Buffer Reuse with sync.Pool](#zero-allocation-buffer-reuse-with-syncpool)
    - [EWMA Real-Time Rate Calculations](#ewma-real-time-rate-calculations)
-   - [Telemetry Anomaly Detection & Alerts](#telemetry-anomaly-detection--alerts)
+   - [Traffic Anomaly Detection & Alerts](#traffic-anomaly-detection--alerts)
 5. [Frontend Plugin Development](#5-frontend-plugin-development)
    - [window.__QY_PLUGIN_SDK__ API Reference](#window__qy_plugin_sdk__-api-reference)
    - [Extension Points & UI Slots](#extension-points--ui-slots)
@@ -252,8 +252,8 @@ if err != nil {
 }
 ```
 
-### Real-Time Telemetry Stream Subscription
-Subscribe to high-frequency live probe telemetry broadcasts across all or selected servers:
+### Real-Time Metrics Stream Subscription
+Subscribe to high-frequency live probe metrics broadcasts across all or selected servers:
 
 ```go
 subOpts := pluginsdk.SubscribeOptions{
@@ -262,7 +262,7 @@ subOpts := pluginsdk.SubscribeOptions{
 }
 
 sub, err := host.SubscribeMetrics(ctx, subOpts, pluginsdk.MetricsHandlerFunc(func(event *pluginsdk.MetricsEvent) {
-	// High-throughput telemetry callback
+	// Real-time metrics callback
 	p.workerPool.Ingest(event, nil)
 }))
 if err != nil {
@@ -273,7 +273,7 @@ if err != nil {
 defer sub.Close()
 ```
 
-Each `MetricsEvent` contains structured probe telemetry:
+Each `MetricsEvent` contains structured probe metrics:
 ```go
 type MetricsEvent struct {
 	Server     Server      `json:"server"`
@@ -289,7 +289,7 @@ type MetricsEvent struct {
 }
 ```
 
-Detailed real-time probe telemetry rates and hardware metrics reside in `event.Stats *ProbeStats`:
+Detailed real-time probe metrics and hardware statistics reside in `event.Stats *ProbeStats`:
 - `event.Stats.NetDownloadSpeed`: Real-time incoming network bandwidth (bytes/sec)
 - `event.Stats.NetUploadSpeed`: Real-time outgoing network bandwidth (bytes/sec)
 - `event.Stats.NetTotalRecv` / `event.Stats.NetTotalSent`: Total byte counters
@@ -353,7 +353,7 @@ notification := pluginsdk.Notification{
 	ServerID: "us-east-node",
 	Details: map[string]any{
 		"level":    "warning", // "info", "warning", "error", "critical"
-		"category": "telemetry",
+		"category": "metrics",
 		"tags":     []string{"bandwidth", "anomaly", "us-east"},
 	},
 }
@@ -378,7 +378,7 @@ logger.Errorf("Database flush failed: %v", err)
 
 ## 4. High-Throughput Data Processing Engine
 
-When processing real-time telemetry from thousands of servers, garbage collection pauses and buffer allocations can create latency spikes. The architecture below combines worker pools, `sync.Pool` zero-allocation recyclers, and Exponentially Weighted Moving Average (EWMA) rates.
+When processing real-time metrics across multiple servers, garbage collection pauses and buffer allocations can create latency spikes. The architecture below combines worker pools, `sync.Pool` zero-allocation recyclers, and Exponentially Weighted Moving Average (EWMA) rates.
 
 ### Worker Pool Architecture
 Decouple fast socket ingestion from computational analysis using a buffered ring worker pool.
@@ -596,8 +596,8 @@ func (c *EWMACalculator) Update(m *NormalizedMetric) *NodeEWMAState {
 }
 ```
 
-### Telemetry Anomaly Detection & Alerts
-Evaluate incoming telemetry against statistical baselines:
+### Traffic Anomaly Detection & Alerts
+Evaluate incoming metrics against statistical baselines:
 
 ```go
 type AnomalyDetector struct {
@@ -733,7 +733,7 @@ const unregisterTab = sdk.registry.registerTab({
         .catch(console.error);
     }, []);
 
-    return sdk.React.createElement(Card, { title: 'Probe Telemetry Analyzer' },
+    return sdk.React.createElement(Card, { title: 'Probe Metrics Analyzer' },
       sdk.React.createElement('div', { className: 'p-4 text-sm text-gray-300' },
         'Active analysis sessions: ',
         sdk.React.createElement(Badge, { variant: 'success' }, data ? data.length : 0)
@@ -754,7 +754,7 @@ const unregisterAction = sdk.registry.registerDrawerAction({
   icon: 'LineChart',
   onClick: (server) => {
     console.log('Inspecting server:', server.id, server.name);
-    // Display modal or load drilldown telemetry
+    // Display modal or load drilldown metrics
   }
 });
 ```
@@ -820,7 +820,7 @@ Let's inspect the official `metrics-analyzer` reference plugin (`plugins/metrics
 plugins/metrics-analyzer/
 ├── plugin.json               # Plugin Manifest
 ├── main.go                   # Go Entrypoint calling pluginsdk.Serve()
-├── analyzer/                 # Go Telemetry Engine
+├── analyzer/                 # Go Metrics & EWMA Engine
 │   ├── analyzer.go           # pluginsdk.Plugin implementation
 │   ├── worker_pool.go        # Concurrent worker pool
 │   ├── pool.go               # sync.Pool memory recyclers
@@ -927,7 +927,7 @@ func (p *MetricsAnalyzerPlugin) Start(host pluginsdk.HostContext) error {
 	}
 	p.sub = sub
 
-	p.logger.Infof("Metrics Analyzer Plugin successfully subscribed to telemetry stream")
+	p.logger.Infof("Metrics Analyzer Plugin successfully subscribed to metrics stream")
 	return nil
 }
 
@@ -990,7 +990,7 @@ export function activate(sdk) {
         return () => clearInterval(id);
       }, []);
 
-      return React.createElement(Card, { title: 'EWMA Traffic Telemetry' },
+      return React.createElement(Card, { title: 'EWMA Traffic Metrics' },
         React.createElement('div', { className: 'flex justify-between items-center py-1' },
           React.createElement('span', { className: 'text-sm text-gray-400' }, 'Cluster In:'),
           React.createElement(Badge, { variant: 'info' }, rates.inMB + ' MB/s')
