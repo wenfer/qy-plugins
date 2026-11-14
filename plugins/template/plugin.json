@@ -1,10 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "id": "starter-template",
-  "name": "插件开发入门模板",
+  "name": "开发者示例插件",
   "version": "1.0.0",
   "author": "wenfer",
-  "description": "用于构建 QY-DASH 微内核插件的极简开发脚手架，集成 Go UDS IPC 进程间通信与原生 ESM 前端扩展能力。",
+  "description": "包含后台服务与前端界面的最小插件示例，供开发者参考与二次开发。",
   "homepage": "https://github.com/wenfer/qy-plugins",
   "repository": "https://github.com/wenfer/qy-plugins",
   "license": "MIT",

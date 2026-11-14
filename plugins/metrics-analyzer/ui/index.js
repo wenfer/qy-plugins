@@ -28,9 +28,9 @@ export function MetricsTab() {
         'div',
         { className: 'flex items-center space-x-2.5' },
         React.createElement(Activity, { className: 'w-5 h-5 text-sky-500' }),
-        React.createElement('h2', { className: 'text-base font-semibold text-slate-900 dark:text-white' }, 'Metrics Analyzer 实时遥测分析')
+        React.createElement('h2', { className: 'text-base font-semibold text-slate-900 dark:text-white' }, '流量分析与突发告警')
       ),
-      React.createElement('span', { className: 'text-2xs font-mono text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded' }, 'v1.0.0 · ESM Hot-Mounted')
+      React.createElement('span', { className: 'text-2xs font-mono text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded' }, 'v1.0.0')
     ),
     React.createElement(
       'div',
@@ -83,7 +83,7 @@ export function TrafficWidget() {
     React.createElement(
       'div',
       { className: 'flex items-center justify-between mb-2' },
-      React.createElement('span', { className: 'text-xs font-medium text-slate-500 dark:text-slate-400' }, '插件 · EWMA 实时流量速率'),
+      React.createElement('span', { className: 'text-xs font-medium text-slate-500 dark:text-slate-400' }, '节点流量速率'),
       React.createElement(Activity, { className: 'w-3.5 h-3.5 text-emerald-500' })
     ),
     React.createElement(
@@ -96,7 +96,7 @@ export function TrafficWidget() {
       'div',
       { className: 'mt-2 text-2xs text-emerald-600 dark:text-emerald-400 font-mono flex items-center space-x-1' },
       React.createElement('span', { className: 'w-1.5 h-1.5 rounded-full bg-emerald-500' }),
-      React.createElement('span', null, '内存复用池零逃逸 · 8 Workers')
+      React.createElement('span', null, '实时计算中')
     )
   );
 }

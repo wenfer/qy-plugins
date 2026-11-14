@@ -4,18 +4,16 @@
   "plugins": [
     {
       "id": "metrics-analyzer",
-      "name": "实时遥测分析器",
+      "name": "流量分析与突发告警",
       "version": "1.0.0",
-      "description": "高吞吐量实时探针遥测分析引擎，具备 Worker Pool 工作池、sync.Pool 缓冲池零逃逸复用、EWMA 流量速率平滑计算与突发异常告警通知功能。",
+      "description": "实时统计各节点进出站流量，自动平滑带宽波动，并在流量异常突增时推送告警通知。",
       "author": "wenfer",
       "homepage": "https://github.com/wenfer/qy-plugins",
       "repository": "https://github.com/wenfer/qy-plugins",
       "license": "MIT",
       "tags": [
-        "遥测分析",
-        "性能指标",
-        "EWMA",
-        "异常告警",
+        "流量监控",
+        "突发告警",
         "官方插件"
       ],
       "min_host_version": "2.0.0",
@@ -51,17 +49,16 @@
     },
     {
       "id": "starter-template",
-      "name": "插件开发入门模板",
+      "name": "开发者示例插件",
       "version": "1.0.0",
-      "description": "用于构建 QY-DASH 微内核插件的极简开发脚手架，集成 Go UDS IPC 进程间通信与原生 ESM 前端扩展能力。",
+      "description": "包含后台服务与前端界面的最小插件示例，供开发者参考与二次开发。",
       "author": "wenfer",
       "homepage": "https://github.com/wenfer/qy-plugins",
       "repository": "https://github.com/wenfer/qy-plugins",
       "license": "MIT",
       "tags": [
-        "开发模板",
-        "入门脚手架",
-        "微内核扩展",
+        "开发示例",
+        "模板",
         "官方插件"
       ],
       "min_host_version": "2.0.0",

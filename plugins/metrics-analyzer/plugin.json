@@ -1,10 +1,10 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "id": "metrics-analyzer",
-  "name": "实时遥测分析器",
+  "name": "流量分析与突发告警",
   "version": "1.0.0",
   "author": "wenfer",
-  "description": "高吞吐量实时探针遥测分析引擎，具备 Worker Pool 工作池、sync.Pool 缓冲池零逃逸复用、EWMA 流量速率平滑计算与突发异常告警通知功能。",
+  "description": "实时统计各节点进出站流量，自动平滑带宽波动，并在流量异常突增时推送告警通知。",
   "homepage": "https://github.com/wenfer/qy-plugins",
   "repository": "https://github.com/wenfer/qy-plugins",
   "license": "MIT",
