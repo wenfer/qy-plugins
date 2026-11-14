@@ -1,0 +1,84 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "metrics-analyzer",
+  "name": "Metrics Analyzer",
+  "version": "1.0.0",
+  "author": "wenfer",
+  "description": "High-throughput real-time probe telemetry analyzer with worker pool, sync.Pool buffer recycling, EWMA traffic rate computation, and anomaly alert dispatching.",
+  "homepage": "https://github.com/wenfer/qy-plugins",
+  "repository": "https://github.com/wenfer/qy-plugins",
+  "license": "MIT",
+  "min_host_version": "2.0.0",
+  "main": "bin/metrics-analyzer",
+  "entrypoint": {
+    "binary": "bin/metrics-analyzer",
+    "args": [
+      "--buffer-size=1024",
+      "--workers=8"
+    ],
+    "env": {
+      "ANALYZER_EWMA_ALPHA": "0.2",
+      "ANALYZER_SPIKE_THRESHOLD_MB": "50.0"
+    }
+  },
+  "ui": {
+    "entrypoint": "ui/index.js",
+    "tabs": [
+      {
+        "id": "metrics-analyzer-tab",
+        "title": "Metrics Analysis",
+        "icon": "Activity"
+      }
+    ],
+    "widgets": [
+      {
+        "id": "ewma-traffic-widget",
+        "title": "EWMA Traffic Rates",
+        "target": "overview"
+      }
+    ]
+  },
+  "frontend": {
+    "esm": "ui/index.js",
+    "extension_points": {
+      "navigation_tabs": [
+        {
+          "id": "metrics-analyzer-tab",
+          "title": "Metrics Analysis",
+          "icon": "Activity",
+          "component": "MetricsTab"
+        }
+      ],
+      "drawer_actions": [
+        {
+          "id": "server-ewma-stats",
+          "title": "EWMA Rate Inspector",
+          "icon": "LineChart",
+          "component": "ServerEWMAAction"
+        }
+      ],
+      "overview_widgets": [
+        {
+          "id": "ewma-traffic-widget",
+          "title": "EWMA Traffic Rates",
+          "span": 2,
+          "component": "TrafficWidget"
+        }
+      ]
+    }
+  },
+  "permissions": [
+    "metrics:subscribe",
+    "storage:isolated",
+    "storage:readwrite",
+    "servers:read",
+    "notifications:send",
+    "notification:send"
+  ],
+  "capabilities": [
+    "metrics_streaming",
+    "ewma_aggregation",
+    "anomaly_detection",
+    "ui_extension"
+  ]
+}

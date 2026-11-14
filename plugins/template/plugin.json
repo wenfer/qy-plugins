@@ -1,0 +1,39 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "id": "starter-template",
+  "name": "Starter Template Plugin",
+  "version": "1.0.0",
+  "author": "wenfer",
+  "description": "Minimal boilerplate template for building QY-DASH microkernel plugins with Go UDS IPC and native ESM UI extensions.",
+  "homepage": "https://github.com/wenfer/qy-plugins",
+  "repository": "https://github.com/wenfer/qy-plugins",
+  "license": "MIT",
+  "min_host_version": "2.0.0",
+  "main": "bin/starter-template",
+  "entrypoint": {
+    "binary": "bin/starter-template",
+    "args": [],
+    "env": {}
+  },
+  "frontend": {
+    "esm": "ui/index.js",
+    "extension_points": {
+      "navigation_tabs": [
+        {
+          "id": "starter-tab",
+          "title": "Starter Plugin",
+          "icon": "Box",
+          "component": "StarterTab"
+        }
+      ]
+    }
+  },
+  "permissions": [
+    "servers:read",
+    "storage:isolated",
+    "storage:readwrite"
+  ],
+  "capabilities": [
+    "starter_boilerplate"
+  ]
+}

@@ -1,0 +1,99 @@
+{
+  "version": 1,
+  "updated_at": "2026-11-14T07:12:00Z",
+  "plugins": [
+    {
+      "id": "metrics-analyzer",
+      "name": "Metrics Analyzer",
+      "version": "1.0.0",
+      "description": "High-throughput real-time probe telemetry analyzer with worker pool, sync.Pool buffer recycling, EWMA traffic rate computation, and anomaly alert dispatching.",
+      "author": "wenfer",
+      "homepage": "https://github.com/wenfer/qy-plugins",
+      "repository": "https://github.com/wenfer/qy-plugins",
+      "license": "MIT",
+      "tags": [
+        "telemetry",
+        "metrics",
+        "ewma",
+        "analytics",
+        "official"
+      ],
+      "min_host_version": "2.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "target_os": "linux",
+          "target_arch": "amd64",
+          "download_url": "https://github.com/wenfer/qy-plugins/releases/download/v1.0.0/metrics-analyzer-linux-amd64.zip",
+          "sha256": "bc5a8abb96a7ad3efaf4f19f257c7dc5fbeb722cd14150bf1f9420138f502d4f",
+          "size_bytes": 1416966,
+          "published_at": "2026-11-14T07:09:13Z"
+        },
+        {
+          "version": "1.0.0",
+          "target_os": "linux",
+          "target_arch": "arm64",
+          "download_url": "https://github.com/wenfer/qy-plugins/releases/download/v1.0.0/metrics-analyzer-linux-arm64.zip",
+          "sha256": "3d38b68bbca31521ff2acc8d311459a012e026b9bb645dc24d16a23bb59da5ff",
+          "size_bytes": 1279914,
+          "published_at": "2026-11-14T07:09:17Z"
+        },
+        {
+          "version": "1.0.0",
+          "target_os": "darwin",
+          "target_arch": "arm64",
+          "download_url": "https://github.com/wenfer/qy-plugins/releases/download/v1.0.0/metrics-analyzer-darwin-arm64.zip",
+          "sha256": "136525589e01ba8a61dea23b2f32f72194987fb7fccfbf3c0460ecbe635d5531",
+          "size_bytes": 1342415,
+          "published_at": "2026-11-14T07:09:20Z"
+        }
+      ]
+    },
+    {
+      "id": "starter-template",
+      "name": "Starter Template",
+      "version": "1.0.0",
+      "description": "Minimal boilerplate template for building QY-DASH microkernel plugins with Go UDS IPC and native ESM UI extensions.",
+      "author": "wenfer",
+      "homepage": "https://github.com/wenfer/qy-plugins",
+      "repository": "https://github.com/wenfer/qy-plugins",
+      "license": "MIT",
+      "tags": [
+        "template",
+        "starter",
+        "boilerplate",
+        "official"
+      ],
+      "min_host_version": "2.0.0",
+      "releases": [
+        {
+          "version": "1.0.0",
+          "target_os": "linux",
+          "target_arch": "amd64",
+          "download_url": "https://github.com/wenfer/qy-plugins/releases/download/v1.0.0/starter-template-linux-amd64.zip",
+          "sha256": "3b3e823766459e8b3bbf04384c27c60d8b58dd18935aee1bcef0188b32fecee9",
+          "size_bytes": 1397254,
+          "published_at": "2026-11-14T07:12:16Z"
+        },
+        {
+          "version": "1.0.0",
+          "target_os": "linux",
+          "target_arch": "arm64",
+          "download_url": "https://github.com/wenfer/qy-plugins/releases/download/v1.0.0/starter-template-linux-arm64.zip",
+          "sha256": "3d36789a115dc8f744c83018c31109f10c8fdf34d65fddb67bc54304f8e0b29d",
+          "size_bytes": 1261467,
+          "published_at": "2026-11-14T07:12:17Z"
+        },
+        {
+          "version": "1.0.0",
+          "target_os": "darwin",
+          "target_arch": "arm64",
+          "download_url": "https://github.com/wenfer/qy-plugins/releases/download/v1.0.0/starter-template-darwin-arm64.zip",
+          "sha256": "77c23801f6c01c35aee5ec7a9768742679a46bb6a429098c03a39e72991c05df",
+          "size_bytes": 1320922,
+          "published_at": "2026-11-14T07:12:17Z"
+        }
+      ]
+    }
+  ]
+}

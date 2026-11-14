@@ -1,0 +1,34 @@
+name: CI & Index Validation
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
+          check-latest: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Go Unit & Stress Tests
+        run: |
+          go test -v -race ./pkg/pluginsdk/...
+          go test -v ./plugins/metrics-analyzer/...
+
+      - name: Validate Marketplace Index Schema
+        run: |
+          python3 scripts/validate-index.py index.json
